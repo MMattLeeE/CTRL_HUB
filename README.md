@@ -1,8 +1,9 @@
 # CTRL_hub
 A central app that houses a variety of information related to daily tasks
--budget tracking
--stock research
--daily tasks / habit tracker
+
+- budget tracking
+- stock research
+- daily tasks / habit tracker
 
 ## Getting Started
 
