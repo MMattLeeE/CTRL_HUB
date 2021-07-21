@@ -45,15 +45,15 @@ class _MyAppState extends State<MyApp> {
     var response_link_token = responseJson['link_token'];
     print(response_link_token);
 
-    LinkConfiguration linkTokenConfiguration = LinkConfiguration(
-      linkToken: "$response_link_token",
+    LinkConfiguration configuration = LinkTokenConfiguration(
+      token: response_link_token,
     );
 
     _plaidLinkToken = PlaidLink(
-      configuration: linkTokenConfiguration,
+      configuration: configuration,
       onSuccess: _onSuccessCallback,
-      onEvent: _onEventCallback,
       onExit: _onExitCallback,
+      onEvent: _onEventCallback,
     );
   }
 
@@ -66,7 +66,7 @@ class _MyAppState extends State<MyApp> {
     print("onEvent: $event, metadata: ${metadata.description()}");
   }
 
-  void _onExitCallback(String error, LinkExitMetadata metadata) {
+  void _onExitCallback(LinkError error, LinkExitMetadata metadata) {
     print("onExit: $error, metadata: ${metadata.description()}");
   }
 
