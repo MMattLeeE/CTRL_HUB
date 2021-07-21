@@ -1,9 +1,6 @@
-import 'dart:convert';
-import 'assets/config.dart';
-
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
 import 'package:plaid_flutter/plaid_flutter.dart';
+import 'package:http/http.dart';
 
 void main() => runApp(MyApp());
 
@@ -13,61 +10,59 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  PlaidLink _plaidLinkToken;
-  var newpublicToken;
-  var CLIENT_ID = plaid_keys['client_id'];
-  var SECRET = plaid_keys['sandbox_secret'];
-  var unique_per_user = "user_good";
+  late PlaidLink _plaidPublicKey, _plaidLinkToken;
 
   @override
   void initState() {
     super.initState();
-    getLinkToken();
-  }
 
-  getLinkToken() async {
-    var headers = {
-      'Content-Type': 'application/json',
-    };
+    LegacyLinkConfiguration publicKeyConfiguration = LegacyLinkConfiguration(
+      clientName: "CLIENT_NAME",
+      publicKey: "PUBLIC_KEY",
+      environment: LinkEnvironment.sandbox,
+      products: <LinkProduct>[
+        LinkProduct.auth,
+      ],
+      language: "en",
+      countryCodes: ['US'],
+      userLegalName: "John Appleseed",
+      userEmailAddress: "jappleseed@youapp.com",
+      userPhoneNumber: "+1 (512) 555-1234",
+    );
 
-    var data =
-        '{ "client_id": "$CLIENT_ID", "secret": "$SECRET", "user": { "client_user_id": "$unique_per_user" }, "client_name": "Plaid App", "products": ["auth"], "country_codes": ["US"], "language": "en", "webhook": "https://sample-web-hook.com", "account_filters": { "depository": { "account_subtypes": ["checking"] } } }';
+    LinkTokenConfiguration linkTokenConfiguration = LinkTokenConfiguration(
+      token: "GENERATED_LINK_TOKEN",
+    );
 
-    var res = await http.post(
-        Uri.parse('https://sandbox.plaid.com/link/token/create'),
-        headers: headers,
-        body: data);
-    if (res.statusCode != 200)
-      throw Exception('http.post error: statusCode= ${res.statusCode}');
-    print(res.body);
-
-    Map<String, dynamic> responseJson = json.decode(res.body);
-    var response_link_token = responseJson['link_token'];
-    print(response_link_token);
-
-    LinkConfiguration configuration = LinkTokenConfiguration(
-      token: response_link_token,
+    _plaidPublicKey = PlaidLink(
+      configuration: publicKeyConfiguration,
+      onSuccess: _onSuccessCallback,
+      onEvent: _onEventCallback,
+      onExit: _onExitCallback,
     );
 
     _plaidLinkToken = PlaidLink(
-      configuration: configuration,
+      configuration: linkTokenConfiguration,
       onSuccess: _onSuccessCallback,
-      onExit: _onExitCallback,
       onEvent: _onEventCallback,
+      onExit: _onExitCallback,
     );
   }
 
   void _onSuccessCallback(String publicToken, LinkSuccessMetadata metadata) {
     print("onSuccess: $publicToken, metadata: ${metadata.description()}");
-    newpublicToken = publicToken;
   }
 
   void _onEventCallback(String event, LinkEventMetadata metadata) {
     print("onEvent: $event, metadata: ${metadata.description()}");
   }
 
-  void _onExitCallback(LinkError error, LinkExitMetadata metadata) {
-    print("onExit: $error, metadata: ${metadata.description()}");
+  void _onExitCallback(LinkError? error, LinkExitMetadata metadata) {
+    print("onExit metadata: ${metadata.description()}");
+
+    if (error != null) {
+      print("onExit error: ${error.description()}");
+    }
   }
 
   @override
@@ -76,10 +71,15 @@ class _MyAppState extends State<MyApp> {
       home: Scaffold(
         body: Container(
           width: double.infinity,
-          color: Colors.lightBlue,
+          color: Colors.grey[200],
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
+              ElevatedButton(
+                onPressed: () => _plaidPublicKey.open(),
+                child: Text("Open Plaid Link (Public Key)"),
+              ),
+              SizedBox(height: 15),
               ElevatedButton(
                 onPressed: () => _plaidLinkToken.open(),
                 child: Text("Open Plaid Link (Link Token)"),
