@@ -7,7 +7,7 @@ A central app that houses a variety of information related to daily tasks
 
 # Activity Log
 
-## 7/22/2021
+## 7/22/21
 New plan: For initial mvp just going to use firebase cloud functions for the back end and firebase authentication
 then later build out custom backend infrastructure 
 
