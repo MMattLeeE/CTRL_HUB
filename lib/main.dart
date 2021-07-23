@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:plaid_flutter/plaid_flutter.dart';
-import 'package:http/http.dart';
 
-void main() => runApp(MyApp());
+// Import the firebase_core plugin
+import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter_ctrl/LinkAppMain.dart';
+
+void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+  runApp(MyApp());
+}
 
 class MyApp extends StatefulWidget {
   @override
@@ -10,84 +15,62 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  late PlaidLink _plaidPublicKey, _plaidLinkToken;
-
-  @override
-  void initState() {
-    super.initState();
-
-    LegacyLinkConfiguration publicKeyConfiguration = LegacyLinkConfiguration(
-      clientName: "CLIENT_NAME",
-      publicKey: "PUBLIC_KEY",
-      environment: LinkEnvironment.sandbox,
-      products: <LinkProduct>[
-        LinkProduct.auth,
-      ],
-      language: "en",
-      countryCodes: ['US'],
-      userLegalName: "John Appleseed",
-      userEmailAddress: "jappleseed@youapp.com",
-      userPhoneNumber: "+1 (512) 555-1234",
-    );
-
-    LinkTokenConfiguration linkTokenConfiguration = LinkTokenConfiguration(
-      token: "GENERATED_LINK_TOKEN",
-    );
-
-    _plaidPublicKey = PlaidLink(
-      configuration: publicKeyConfiguration,
-      onSuccess: _onSuccessCallback,
-      onEvent: _onEventCallback,
-      onExit: _onExitCallback,
-    );
-
-    _plaidLinkToken = PlaidLink(
-      configuration: linkTokenConfiguration,
-      onSuccess: _onSuccessCallback,
-      onEvent: _onEventCallback,
-      onExit: _onExitCallback,
-    );
-  }
-
-  void _onSuccessCallback(String publicToken, LinkSuccessMetadata metadata) {
-    print("onSuccess: $publicToken, metadata: ${metadata.description()}");
-  }
-
-  void _onEventCallback(String event, LinkEventMetadata metadata) {
-    print("onEvent: $event, metadata: ${metadata.description()}");
-  }
-
-  void _onExitCallback(LinkError? error, LinkExitMetadata metadata) {
-    print("onExit metadata: ${metadata.description()}");
-
-    if (error != null) {
-      print("onExit error: ${error.description()}");
-    }
-  }
+  final Future<FirebaseApp> _initialization = Firebase.initializeApp();
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
-        body: Container(
-          width: double.infinity,
-          color: Colors.grey[200],
+    return FutureBuilder(
+      future: _initialization,
+      builder: (context, snapshot) {
+        //error checking
+        if (snapshot.hasError) {
+          return Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: <Widget>[
+                const Icon(
+                  Icons.error_outline,
+                  color: Colors.red,
+                  size: 60,
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(top: 16),
+                  child: Text(
+                    'Error: ${snapshot.error}',
+                    textDirection: TextDirection.rtl,
+                  ),
+                ),
+              ],
+            ),
+          );
+        }
+        //once complete show app
+        if (snapshot.connectionState == ConnectionState.done) {
+          return LinkAppMain();
+        }
+        // if still loading show something
+        return Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              ElevatedButton(
-                onPressed: () => _plaidPublicKey.open(),
-                child: Text("Open Plaid Link (Public Key)"),
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: const <Widget>[
+              SizedBox(
+                child: CircularProgressIndicator(),
+                width: 60,
+                height: 60,
               ),
-              SizedBox(height: 15),
-              ElevatedButton(
-                onPressed: () => _plaidLinkToken.open(),
-                child: Text("Open Plaid Link (Link Token)"),
+              Padding(
+                padding: const EdgeInsets.only(top: 16),
+                child: Text(
+                  'Awaiting Results...',
+                  textDirection: TextDirection.rtl,
+                ),
               ),
             ],
           ),
-        ),
-      ),
+        );
+      },
     );
   }
 }
