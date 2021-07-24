@@ -7,6 +7,10 @@ A central app that houses a variety of information related to daily tasks
 
 # Activity Log
 
+## 7/23/21
+- Testing cloud functions in repository https://github.com/MMattLeeE/FirebaseCloudFunctions
+- Building the initial link token creation function.
+
 ## 7/22/21
 New plan: For initial mvp just going to use firebase cloud functions for the back end and firebase authentication
 then later build out custom backend infrastructure 
