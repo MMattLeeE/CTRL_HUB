@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:plaid_flutter/plaid_flutter.dart';
-import 'package:http/http.dart';
+
+import 'package:cloud_functions/cloud_functions.dart';
 
 class LinkAppMain extends StatefulWidget {
   const LinkAppMain({Key? key}) : super(key: key);
@@ -10,35 +11,27 @@ class LinkAppMain extends StatefulWidget {
 }
 
 class _LinkAppMainState extends State<LinkAppMain> {
-  late PlaidLink _plaidPublicKey, _plaidLinkToken;
+  late PlaidLink _plaidLinkToken;
+
+  var message = 'cloud function call return here';
+
+  void _addMessage(var text) {
+    debugPrint('pressed button');
+    /* HttpsCallable callable =
+        FirebaseFunctions.instance.httpsCallable('addMessage');
+    final results = await callable({text: 'testMessageLocal'});
+    debugPrint(results.toString()); */
+    setState(() {
+      message = 'changed';
+    });
+  }
 
   @override
   void initState() {
     super.initState();
 
-    LegacyLinkConfiguration publicKeyConfiguration = LegacyLinkConfiguration(
-      clientName: "CLIENT_NAME",
-      publicKey: "PUBLIC_KEY",
-      environment: LinkEnvironment.sandbox,
-      products: <LinkProduct>[
-        LinkProduct.auth,
-      ],
-      language: "en",
-      countryCodes: ['US'],
-      userLegalName: "John Appleseed",
-      userEmailAddress: "jappleseed@youapp.com",
-      userPhoneNumber: "+1 (512) 555-1234",
-    );
-
     LinkTokenConfiguration linkTokenConfiguration = LinkTokenConfiguration(
       token: "GENERATED_LINK_TOKEN",
-    );
-
-    _plaidPublicKey = PlaidLink(
-      configuration: publicKeyConfiguration,
-      onSuccess: _onSuccessCallback,
-      onEvent: _onEventCallback,
-      onExit: _onExitCallback,
     );
 
     _plaidLinkToken = PlaidLink(
@@ -71,13 +64,14 @@ class _LinkAppMainState extends State<LinkAppMain> {
       home: Scaffold(
         body: Container(
           width: double.infinity,
-          color: Colors.black,
+          color: Colors.grey,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
+              Text('$message'),
               ElevatedButton(
-                onPressed: () => _plaidPublicKey.open(),
-                child: Text("Open Plaid Link (Public Key)"),
+                onPressed: () => _addMessage,
+                child: Text("call emulatior addMessage"),
               ),
               SizedBox(height: 15),
               ElevatedButton(

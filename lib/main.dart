@@ -3,9 +3,12 @@ import 'package:flutter/material.dart';
 // Import the firebase_core plugin
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_ctrl/LinkAppMain.dart';
+import 'package:cloud_functions/cloud_functions.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
+  FirebaseFunctions.instanceFor(region: 'us-central1')
+      .useFunctionsEmulator('localhost', 5001);
   runApp(MyApp());
 }
 
