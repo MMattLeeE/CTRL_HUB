@@ -12,37 +12,43 @@ class LinkAppMain extends StatefulWidget {
 
 class _LinkAppMainState extends State<LinkAppMain> {
   late PlaidLink _plaidLinkToken;
+  String _linkToken = 'Getting Link Token...';
+  bool _linkReady = false;
 
-  var output;
-
+  // explaination for how futures/promises work :
+  // https://dart.dev/codelabs/async-await
   @override
   void initState() {
     super.initState();
 
-    _addMessage();
-
-    LinkTokenConfiguration linkTokenConfiguration = LinkTokenConfiguration(
-      token: "GENERATED_LINK_TOKEN",
-    );
-
-    _plaidLinkToken = PlaidLink(
-      configuration: linkTokenConfiguration,
-      onSuccess: _onSuccessCallback,
-      onEvent: _onEventCallback,
-      onExit: _onExitCallback,
-    );
+    _getLinkToken('MMattLeeE');
   }
 
-  void _addMessage() async {
+  void _getLinkToken(String userId) async {
     HttpsCallable callable =
-        FirebaseFunctions.instance.httpsCallable('testFunction');
+        FirebaseFunctions.instance.httpsCallable('getLinkToken');
+    final message = await callable({'userId': userId});
 
-    final message = await callable('hello');
-    print(message);
+    // after getting link token, build the Plaid Link object to be called later
     setState(() {
-      output = message.data;
+      _linkToken = message.data['link_token'];
+
+      LinkTokenConfiguration linkTokenConfiguration = LinkTokenConfiguration(
+        token: _linkToken,
+      );
+
+      _plaidLinkToken = PlaidLink(
+        configuration: linkTokenConfiguration,
+        onSuccess: _onSuccessCallback,
+        onEvent: _onEventCallback,
+        onExit: _onExitCallback,
+      );
+
+      _linkReady = true;
     });
-    print(output);
+
+    print(_linkToken.runtimeType);
+    print(_linkToken);
   }
 
   void _onSuccessCallback(String publicToken, LinkSuccessMetadata metadata) {
@@ -71,14 +77,10 @@ class _LinkAppMainState extends State<LinkAppMain> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              Text('$output'),
-              ElevatedButton(
-                onPressed: () => _addMessage,
-                child: Text("call emulatior addMessage"),
-              ),
+              Text('$_linkToken'),
               SizedBox(height: 15),
               ElevatedButton(
-                onPressed: () => _plaidLinkToken.open(),
+                onPressed: _linkReady ? () => _plaidLinkToken.open() : null,
                 child: Text("Open Plaid Link (Link Token)"),
               ),
             ],

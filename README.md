@@ -1,4 +1,4 @@
-# CTRL_hub
+# CTRL_HUB
 A central app that houses a variety of information related to daily tasks
 
 - budget tracking
@@ -6,12 +6,16 @@ A central app that houses a variety of information related to daily tasks
 - daily tasks / habit tracker
 
 # Activity Log
+## 8/1/21
+- Built out link token authentication cloud function
+- Need to finish authentication and basic data call
+
 ## 7/28/21
 - Need to update the cloud function to use onCall
 - Test in flutter app
 
 ## 7/23/21
-- Testing cloud functions in repository https://github.com/MMattLeeE/FirebaseCloudFunctions
+- Testing cloud functions in repository https://github.com/MMattLeeE/CTRL_HUB_Functions
 - Building the initial link token creation function.
 
 ## 7/22/21
