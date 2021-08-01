@@ -6,6 +6,9 @@ A central app that houses a variety of information related to daily tasks
 - daily tasks / habit tracker
 
 # Activity Log
+## 7/28/21
+- Need to update the cloud function to use onCall
+- Test in flutter app
 
 ## 7/23/21
 - Testing cloud functions in repository https://github.com/MMattLeeE/FirebaseCloudFunctions
