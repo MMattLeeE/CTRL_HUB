@@ -13,22 +13,13 @@ class LinkAppMain extends StatefulWidget {
 class _LinkAppMainState extends State<LinkAppMain> {
   late PlaidLink _plaidLinkToken;
 
-  var message = 'cloud function call return here';
-
-  void _addMessage(var text) {
-    debugPrint('pressed button');
-    /* HttpsCallable callable =
-        FirebaseFunctions.instance.httpsCallable('addMessage');
-    final results = await callable({text: 'testMessageLocal'});
-    debugPrint(results.toString()); */
-    setState(() {
-      message = 'changed';
-    });
-  }
+  var output;
 
   @override
   void initState() {
     super.initState();
+
+    _addMessage();
 
     LinkTokenConfiguration linkTokenConfiguration = LinkTokenConfiguration(
       token: "GENERATED_LINK_TOKEN",
@@ -40,6 +31,18 @@ class _LinkAppMainState extends State<LinkAppMain> {
       onEvent: _onEventCallback,
       onExit: _onExitCallback,
     );
+  }
+
+  void _addMessage() async {
+    HttpsCallable callable =
+        FirebaseFunctions.instance.httpsCallable('testFunction');
+
+    final message = await callable('hello');
+    print(message);
+    setState(() {
+      output = message.data;
+    });
+    print(output);
   }
 
   void _onSuccessCallback(String publicToken, LinkSuccessMetadata metadata) {
@@ -68,7 +71,7 @@ class _LinkAppMainState extends State<LinkAppMain> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              Text('$message'),
+              Text('$output'),
               ElevatedButton(
                 onPressed: () => _addMessage,
                 child: Text("call emulatior addMessage"),
