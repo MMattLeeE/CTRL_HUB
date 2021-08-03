@@ -6,15 +6,13 @@ A central app that houses a variety of information related to daily tasks
 - daily tasks / habit tracker
 - chat messaging
 
-test
-
 # Activity Log
 ## 8/2/21
 - Review pattern tasks https://github.com/plaid/pattern
-    - Setup User model
-    - Store keys and users in firestore db
-    - Implement Google Auth
-        - tie to all function calls
+- Setup User model
+- Store keys and users in firestore db
+- Implement Google Auth
+- tie to all function calls
 
 ## 8/1/21
 - Built out link token authentication cloud function
