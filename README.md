@@ -4,8 +4,17 @@ A central app that houses a variety of information related to daily tasks
 - budget tracking
 - stock research
 - daily tasks / habit tracker
+- chat messaging
+
 
 # Activity Log
+## 8/2/21
+- Review pattern tasks https://github.com/plaid/pattern
+    - Setup User model
+    - Store keys and users in firestore db
+    - Implement Google Auth
+        - tie to all function calls
+
 ## 8/1/21
 - Built out link token authentication cloud function
 - Need to finish authentication and basic data call
