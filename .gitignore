@@ -34,6 +34,7 @@ lib/assets/config.dart
 
 # Web related
 lib/generated_plugin_registrant.dart
+lib/web/config.js
 
 # Symbolication related
 app.*.symbols
