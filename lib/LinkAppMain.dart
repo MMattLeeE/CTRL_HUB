@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:plaid_flutter/plaid_flutter.dart';
-
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_functions/cloud_functions.dart';
 import 'dart:convert';
 
@@ -16,6 +16,7 @@ class _LinkAppMainState extends State<LinkAppMain> {
   String _linkToken = 'Getting Link Token...';
   String _accessToken = '';
   String _itemId = '';
+  String _userName = 'MMattLeeE';
   List<dynamic> _transactionData = [
     {
       'date': '1/2/3',
@@ -32,7 +33,8 @@ class _LinkAppMainState extends State<LinkAppMain> {
   void initState() {
     super.initState();
 
-    _getLinkToken('MMattLeeE');
+    //uncomment if you want to auto call for link token when app load:
+    //_getLinkToken('MMattLeeE');
   }
 
   void _getLinkToken(String userId) async {
@@ -122,6 +124,10 @@ class _LinkAppMainState extends State<LinkAppMain> {
             //mainAxisSize: MainAxisSize.min,
             children: <Widget>[
               SizedBox(height: 15),
+              ElevatedButton(
+                onPressed: () => _getLinkToken(_userName),
+                child: Text('Get Token'),
+              ),
               Text('$_linkToken'),
               SizedBox(height: 15),
               ElevatedButton(
