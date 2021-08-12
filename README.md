@@ -7,6 +7,9 @@ A central app that houses a variety of information related to daily tasks
 - chat messaging
 
 # Activity Log
+## 8/12/21
+- Implementing Google Auth using flutterfire and google_sign_in_web package
+- doc https://pub.dev/packages/google_sign_in_web
 ## 8/2/21
 - Review pattern tasks https://github.com/plaid/pattern
 - Setup User model

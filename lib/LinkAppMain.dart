@@ -13,7 +13,7 @@ class LinkAppMain extends StatefulWidget {
 
 class _LinkAppMainState extends State<LinkAppMain> {
   late PlaidLink _plaidLinkToken;
-  String _linkToken = 'Getting Link Token...';
+  String _linkToken = 'Press Button to get Link Token...';
   String _accessToken = '';
   String _itemId = '';
   String _userName = 'MMattLeeE';
