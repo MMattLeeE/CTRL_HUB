@@ -7,6 +7,8 @@ A central app that houses a variety of information related to daily tasks
 - chat messaging
 
 # Activity Log
+## 8/16/21
+- Review deep dive article on [implementing google auth flutter](https://medium.com/firebase-developers/dive-into-firebase-auth-on-flutter-third-party-authentication-a242472ae347)
 ## 8/12/21
 - Implementing Google Auth using flutterfire and google_sign_in_web package
 - doc https://pub.dev/packages/google_sign_in_web
