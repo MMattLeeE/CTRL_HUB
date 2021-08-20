@@ -7,6 +7,11 @@ A central app that houses a variety of information related to daily tasks
 - chat messaging
 
 # Activity Log
+## 8/19/21
+- test in example works; implementing in main app
+- followed doc at https://firebase.flutter.dev/docs/auth/social
+- fuctions signInWithGoogle() userCred return doesnt have to be stored anywhere...
+- So far the auth component is bare bones; need to secure it to cloud function calls
 ## 8/16/21
 - Review deep dive article on [implementing google auth flutter](https://medium.com/firebase-developers/dive-into-firebase-auth-on-flutter-third-party-authentication-a242472ae347)
 ## 8/12/21

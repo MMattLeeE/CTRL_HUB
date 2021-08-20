@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 // Import the firebase_core plugin
@@ -9,6 +10,7 @@ void main() {
   WidgetsFlutterBinding.ensureInitialized();
   FirebaseFunctions.instanceFor(region: 'us-central1')
       .useFunctionsEmulator('localhost', 5001);
+  //FirebaseAuth.instance.useAuthEmulator('localhost', 9099);
   runApp(MyApp());
 }
 

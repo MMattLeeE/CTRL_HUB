@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:plaid_flutter/plaid_flutter.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_functions/cloud_functions.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'dart:convert';
 
 class LinkAppMain extends StatefulWidget {
@@ -17,6 +18,9 @@ class _LinkAppMainState extends State<LinkAppMain> {
   String _accessToken = '';
   String _itemId = '';
   String _userName = 'MMattLeeE';
+  User? _currentUser;
+  UserCredential? _userCred;
+
   List<dynamic> _transactionData = [
     {
       'date': '1/2/3',
@@ -27,14 +31,46 @@ class _LinkAppMainState extends State<LinkAppMain> {
   bool _linkReady = false;
   bool _auth = false;
 
-  // explaination for how futures/promises work :
-  // https://dart.dev/codelabs/async-await
   @override
   void initState() {
     super.initState();
 
-    //uncomment if you want to auto call for link token when app load:
-    //_getLinkToken('MMattLeeE');
+    FirebaseAuth.instance.authStateChanges().listen((User? user) {
+      if (user == null) {
+        print('User is currently signed out!');
+        setState(() {
+          _currentUser = user;
+        });
+      } else {
+        print('User is signed in!');
+        setState(() {
+          _currentUser = user;
+        });
+      }
+    });
+  }
+
+  void signInWithGoogle() async {
+    // Create a new provider
+    GoogleAuthProvider googleProvider = GoogleAuthProvider();
+
+    googleProvider
+        .addScope('https://www.googleapis.com/auth/contacts.readonly');
+    googleProvider.setCustomParameters({'login_hint': 'user@example.com'});
+
+    // Once signed in, return the UserCredential
+    UserCredential userCred =
+        await FirebaseAuth.instance.signInWithPopup(googleProvider);
+    setState(() {
+      _userCred = userCred;
+    });
+    print(_userCred?.credential);
+    // Or use signInWithRedirect
+    // return await FirebaseAuth.instance.signInWithRedirect(googleProvider);
+  }
+
+  void signOut() async {
+    await FirebaseAuth.instance.signOut();
   }
 
   void _getLinkToken(String userId) async {
@@ -123,6 +159,19 @@ class _LinkAppMainState extends State<LinkAppMain> {
             mainAxisAlignment: MainAxisAlignment.center,
             //mainAxisSize: MainAxisSize.min,
             children: <Widget>[
+              //GOOGLE LOGIN BUTTON
+              SizedBox(height: 15),
+              ElevatedButton(
+                onPressed: () => signInWithGoogle(),
+                child: Text('Sign In Google'),
+              ),
+              ElevatedButton(
+                onPressed: () => signOut(),
+                child: Text('sign Out'),
+              ),
+              Text('${_currentUser?.email}'),
+              Text('${_currentUser?.displayName}'),
+
               SizedBox(height: 15),
               ElevatedButton(
                 onPressed: () => _getLinkToken(_userName),
