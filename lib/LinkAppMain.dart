@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:plaid_flutter/plaid_flutter.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_functions/cloud_functions.dart';
-import 'package:google_sign_in/google_sign_in.dart';
-import 'dart:convert';
+//uneeded for a web app; with multiple platforms would need to use:
+//import 'package:google_sign_in/google_sign_in.dart';
+//import 'dart:convert';
 
 class LinkAppMain extends StatefulWidget {
   const LinkAppMain({Key? key}) : super(key: key);
