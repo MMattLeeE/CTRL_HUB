@@ -6,6 +6,10 @@ import 'package:cloud_functions/cloud_functions.dart';
 //import 'package:google_sign_in/google_sign_in.dart';
 //import 'dart:convert';
 
+class AuthException implements Exception {
+  String errMsg() => 'ERROR: Require a logged in User. Please log in first.';
+}
+
 class LinkAppMain extends StatefulWidget {
   const LinkAppMain({Key? key}) : super(key: key);
 
@@ -15,10 +19,10 @@ class LinkAppMain extends StatefulWidget {
 
 class _LinkAppMainState extends State<LinkAppMain> {
   late PlaidLink _plaidLinkToken;
-  String _linkToken = 'Press Button to get Link Token...';
+  String _linkToken = 'No link token found';
   String _accessToken = '';
   String _itemId = '';
-  String _userName = 'MMattLeeE';
+  //String _userName = 'MMattLeeE';
   User? _currentUser;
   UserCredential? _userCred;
 
@@ -74,30 +78,39 @@ class _LinkAppMainState extends State<LinkAppMain> {
     await FirebaseAuth.instance.signOut();
   }
 
-  void _getLinkToken(String userId) async {
+  void _getLinkToken() async {
     HttpsCallable callable =
         FirebaseFunctions.instance.httpsCallable('getLinkToken');
-    final message = await callable({'userId': userId});
 
-    // after getting link token, build the Plaid Link object to be called later
-    setState(() {
-      _linkToken = message.data['link_token'];
+    try {
+      if (_currentUser == null) {
+        throw new AuthException();
+      }
+      final message = await callable();
 
-      LinkTokenConfiguration linkTokenConfiguration = LinkTokenConfiguration(
-        token: _linkToken,
-      );
+      // after getting link token, build the Plaid Link object to be called later
+      setState(() {
+        _linkToken = message.data['link_token'];
 
-      _plaidLinkToken = PlaidLink(
-        configuration: linkTokenConfiguration,
-        onSuccess: _onSuccessCallback,
-        onEvent: _onEventCallback,
-        onExit: _onExitCallback,
-      );
+        LinkTokenConfiguration linkTokenConfiguration = LinkTokenConfiguration(
+          token: _linkToken,
+        );
 
-      _linkReady = true;
-    });
+        _plaidLinkToken = PlaidLink(
+          configuration: linkTokenConfiguration,
+          onSuccess: _onSuccessCallback,
+          onEvent: _onEventCallback,
+          onExit: _onExitCallback,
+        );
 
-    print(_linkToken.runtimeType);
+        _linkReady = true;
+      });
+    } on AuthException catch (e) {
+      print(e.errMsg());
+    } catch (e) {
+      print(e);
+    }
+    //print(_linkToken.runtimeType);
     print(_linkToken);
   }
 
@@ -175,7 +188,7 @@ class _LinkAppMainState extends State<LinkAppMain> {
 
               SizedBox(height: 15),
               ElevatedButton(
-                onPressed: () => _getLinkToken(_userName),
+                onPressed: () => _getLinkToken(),
                 child: Text('Get Token'),
               ),
               Text('$_linkToken'),
