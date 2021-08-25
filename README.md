@@ -7,6 +7,8 @@ A central app that houses a variety of information related to daily tasks
 - chat messaging
 
 # Activity Log
+## 8/24/21
+- Reviewing structuring flutter app. Need to refactor and organize now that the basic authentication, data fetching is set up.
 ## 8/19/21
 - test in example works; implementing in main app
 - followed doc at https://firebase.flutter.dev/docs/auth/social
