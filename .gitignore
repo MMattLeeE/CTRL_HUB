@@ -30,8 +30,8 @@
 .pub-cache/
 .pub/
 /build/
-lib/assets/config.dart
-
+/lib/auxilary/config.dart
+/lib/auxilary/
 # Web related
 lib/generated_plugin_registrant.dart
 web/config.js
