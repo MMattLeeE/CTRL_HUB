@@ -5,23 +5,17 @@ A central app that houses a variety of information related to daily tasks
 - stock research
 - daily tasks / habit tracker
 - chat messaging
+- random projects
 
-## TODO
-
-- [ ] organize/refactor app components
-    - main landing / login
-- [ ] set up remembering login/token
-- [ ] set up remembering accounts tied to a user
-- [ ] build daily weekly monthly balance views
+#Important
+- there are two config files that are gitignored
+    - one at web/config.js with a script<> reference in index.html. This connects to the firebase project
+    - a config file DO_NOT_COMMIT holds the plaid api keys
 
 # Activity Log
 ## 1/7/2022
 - issues with firebase app initialize
-    - moved to beta to increase version to install flutterfire cli to initialize the app
-    - contrary to what is listed in firebase docs; install using command:
-        ```
-        flutter pub global activate flutterfire_cli
-        ```
+    - in the shuffle somehow lost the config file so need to re-add
 ## 8/24/21
 - Reviewing structuring flutter app. Need to refactor and organize now that the basic authentication, data fetching is set up.
 ## 8/19/21
