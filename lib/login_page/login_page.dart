@@ -10,10 +10,10 @@ class LoginPage extends StatelessWidget {
         image: DecorationImage(
           image: AssetImage('assets/skyscraper.jpg'),
           fit: BoxFit.none,
-          alignment: Alignment(0, 0),
+          alignment: Alignment(-.3, 0),
           scale: 1.0,
           colorFilter: ColorFilter.mode(
-            Colors.black.withOpacity(0.6),
+            Colors.black.withOpacity(0.9),
             BlendMode.darken,
           ),
         ),
@@ -26,7 +26,12 @@ class LoginPage extends StatelessWidget {
               height: 500,
               width: 500,
               child: Container(
-                color: Colors.grey.withOpacity(0.25),
+                decoration: BoxDecoration(
+                  color: Colors.grey.withOpacity(0.85),
+                  borderRadius: BorderRadius.all(
+                    Radius.circular(20),
+                  ),
+                ),
                 child: Align(
                   alignment: Alignment(0, -.8),
                   child: Column(
