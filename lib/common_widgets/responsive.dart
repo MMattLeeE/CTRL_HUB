@@ -10,7 +10,9 @@ import 'package:flutter/material.dart';
 // condition ? true widget : false widget
 // Responsive.isSmallScreen(context) ? Container() : Row()
 //
-
+// also this might not need to be a stateless widget and just be a
+// plain dart class...?
+//
 class Responsive extends StatelessWidget {
   final Widget largeScreen;
   final Widget? mediumScreen;
