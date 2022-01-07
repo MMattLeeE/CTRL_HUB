@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:plaid_flutter/plaid_flutter.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_functions/cloud_functions.dart';
-//uneeded for a web app; with multiple platforms would need to use:
+//below code uneeded for a web app; with multiple platforms would need to use:
 //import 'package:google_sign_in/google_sign_in.dart';
 //import 'dart:convert';
 
@@ -164,77 +164,75 @@ class _LinkAppMainState extends State<LinkAppMain> {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
-        body: Container(
-          width: double.infinity,
-          color: Colors.grey,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            //mainAxisSize: MainAxisSize.min,
-            children: <Widget>[
-              //GOOGLE LOGIN BUTTON
-              SizedBox(height: 15),
-              ElevatedButton(
-                onPressed: () => signInWithGoogle(),
-                child: Text('Sign In Google'),
-              ),
-              ElevatedButton(
-                onPressed: () => signOut(),
-                child: Text('sign Out'),
-              ),
-              Text('${_currentUser?.email}'),
-              Text('${_currentUser?.displayName}'),
+    return Scaffold(
+      body: Container(
+        width: double.infinity,
+        color: Colors.grey,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          //mainAxisSize: MainAxisSize.min,
+          children: <Widget>[
+            //GOOGLE LOGIN BUTTON
+            SizedBox(height: 15),
+            ElevatedButton(
+              onPressed: () => signInWithGoogle(),
+              child: Text('Sign In Google'),
+            ),
+            ElevatedButton(
+              onPressed: () => signOut(),
+              child: Text('sign Out'),
+            ),
+            Text('${_currentUser?.email}'),
+            Text('${_currentUser?.displayName}'),
 
-              SizedBox(height: 15),
-              ElevatedButton(
-                onPressed: () => _getLinkToken(),
-                child: Text('Get Token'),
-              ),
-              Text('$_linkToken'),
-              SizedBox(height: 15),
-              ElevatedButton(
-                onPressed: _linkReady ? () => _plaidLinkToken.open() : null,
-                child: Text("Authenticate"),
-              ),
-              Text('$_accessToken'),
-              Text('$_itemId'),
-              SizedBox(height: 15),
-              ElevatedButton(
-                onPressed: _auth ? () => _getTransactions(_accessToken) : null,
-                child: Text("get Transactions"),
-              ),
-              SizedBox(height: 15),
-              Flexible(
-                flex: 1,
-                child: SingleChildScrollView(
-                  child: DataTable(
-                    columns: const <DataColumn>[
-                      DataColumn(label: Text('Date')),
-                      DataColumn(label: Text('Merchant Name')),
-                      DataColumn(label: Text('Amount')),
-                    ],
-                    rows: List<DataRow>.generate(
-                      _transactionData.length,
-                      (int index) => DataRow(
-                        cells: <DataCell>[
-                          DataCell(
-                            Text('${_transactionData[index]["date"]}'),
-                          ),
-                          DataCell(
-                            Text('${_transactionData[index]["merchant_name"]}'),
-                          ),
-                          DataCell(
-                            Text('${_transactionData[index]["amount"]}'),
-                          ),
-                        ],
-                      ),
+            SizedBox(height: 15),
+            ElevatedButton(
+              onPressed: () => _getLinkToken(),
+              child: Text('Get Token'),
+            ),
+            Text('$_linkToken'),
+            SizedBox(height: 15),
+            ElevatedButton(
+              onPressed: _linkReady ? () => _plaidLinkToken.open() : null,
+              child: Text("Authenticate"),
+            ),
+            Text('$_accessToken'),
+            Text('$_itemId'),
+            SizedBox(height: 15),
+            ElevatedButton(
+              onPressed: _auth ? () => _getTransactions(_accessToken) : null,
+              child: Text("get Transactions"),
+            ),
+            SizedBox(height: 15),
+            Flexible(
+              flex: 1,
+              child: SingleChildScrollView(
+                child: DataTable(
+                  columns: const <DataColumn>[
+                    DataColumn(label: Text('Date')),
+                    DataColumn(label: Text('Merchant Name')),
+                    DataColumn(label: Text('Amount')),
+                  ],
+                  rows: List<DataRow>.generate(
+                    _transactionData.length,
+                    (int index) => DataRow(
+                      cells: <DataCell>[
+                        DataCell(
+                          Text('${_transactionData[index]["date"]}'),
+                        ),
+                        DataCell(
+                          Text('${_transactionData[index]["merchant_name"]}'),
+                        ),
+                        DataCell(
+                          Text('${_transactionData[index]["amount"]}'),
+                        ),
+                      ],
                     ),
                   ),
                 ),
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );

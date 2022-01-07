@@ -8,8 +8,11 @@ A central app that houses a variety of information related to daily tasks
 
 ## TODO
 
-- [ ] build daily momthly weekly balance views
-- [ ]
+- [ ] organize/refactor app components
+    - main landing / login
+- [ ] set up remembering login/token
+- [ ] set up remembering accounts tied to a user
+- [ ] build daily weekly monthly balance views
 
 # Activity Log
 ## 8/24/21
