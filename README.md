@@ -15,6 +15,13 @@ A central app that houses a variety of information related to daily tasks
 - [ ] build daily weekly monthly balance views
 
 # Activity Log
+## 1/7/2022
+- issues with firebase app initialize
+    - moved to beta to increase version to install flutterfire cli to initialize the app
+    - contrary to what is listed in firebase docs; install using command:
+        ```
+        flutter pub global activate flutterfire_cli
+        ```
 ## 8/24/21
 - Reviewing structuring flutter app. Need to refactor and organize now that the basic authentication, data fetching is set up.
 ## 8/19/21

@@ -96,13 +96,13 @@ class _LinkAppMainState extends State<LinkAppMain> {
           token: _linkToken,
         );
 
-        _plaidLinkToken = PlaidLink(
+        /*_plaidLinkToken = PlaidLink(
           configuration: linkTokenConfiguration,
           onSuccess: _onSuccessCallback,
           onEvent: _onEventCallback,
           onExit: _onExitCallback,
         );
-
+*/
         _linkReady = true;
       });
     } on AuthException catch (e) {
@@ -193,7 +193,8 @@ class _LinkAppMainState extends State<LinkAppMain> {
             Text('$_linkToken'),
             SizedBox(height: 15),
             ElevatedButton(
-              onPressed: _linkReady ? () => _plaidLinkToken.open() : null,
+              onPressed:
+                  () {}, //_linkReady ? () => _plaidLinkToken.open() : null,
               child: Text("Authenticate"),
             ),
             Text('$_accessToken'),
