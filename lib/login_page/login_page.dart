@@ -11,6 +11,7 @@ class LoginPage extends StatelessWidget {
           image: AssetImage('assets/skyscraper.jpg'),
           fit: BoxFit.none,
           alignment: Alignment(0, 0),
+          scale: 1.0,
           colorFilter: ColorFilter.mode(
             Colors.black.withOpacity(0.6),
             BlendMode.darken,
