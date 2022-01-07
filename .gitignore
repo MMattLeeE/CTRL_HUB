@@ -31,6 +31,7 @@
 .pub/
 /build/
 lib/assets/config.dart
+lib/DO_NOT_ADD/
 
 # Web related
 lib/generated_plugin_registrant.dart
