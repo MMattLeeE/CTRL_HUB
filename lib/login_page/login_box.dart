@@ -17,6 +17,7 @@ class LoginBox extends StatelessWidget {
           ),
         ),
         child: Align(
+          //adjust location of the box
           alignment: Alignment(0, -.8),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
