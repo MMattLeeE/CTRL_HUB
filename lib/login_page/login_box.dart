@@ -17,14 +17,14 @@ class LoginBox extends StatelessWidget {
           ),
         ),
         child: Align(
-          //adjust location of the box
-          alignment: Alignment(0, -.8),
+          //adjust location of the column
+          alignment: Alignment(0, 0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisSize: MainAxisSize.min,
             children: [
               Padding(
-                padding: EdgeInsets.fromLTRB(52, 12, 20, 24),
+                padding: EdgeInsets.fromLTRB(52, 12, 20, 5),
                 child: Text(
                   'CTRL_hub',
                   style: Theme.of(context).textTheme.headline2?.merge(
@@ -35,9 +35,9 @@ class LoginBox extends StatelessWidget {
                 ),
               ),
               Padding(
-                padding: EdgeInsets.fromLTRB(52, 12, 30, 24),
+                padding: EdgeInsets.fromLTRB(52, 5, 30, 14),
                 child: Text(
-                  'Central front end for projects and utilites',
+                  ' Central \n front-end \n projects \n utilites',
                   style: Theme.of(context).textTheme.headline4?.merge(
                         TextStyle(
                           color: Colors.white60,
@@ -46,10 +46,31 @@ class LoginBox extends StatelessWidget {
                 ),
               ),
               Padding(
-                padding: EdgeInsets.fromLTRB(52, 12, 20, 24),
-                child: ElevatedButton(
-                  onPressed: () {},
-                  child: Text('Sign in with Google'),
+                padding: EdgeInsets.fromLTRB(52, 12, 60, 24),
+                child: Align(
+                  alignment: Alignment.bottomRight,
+                  child: SizedBox(
+                    height: 40,
+                    width: 225,
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        primary: Colors.blue[200],
+                        onPrimary: Colors.black,
+                      ),
+                      onPressed: () {},
+                      child: Row(
+                        mainAxisSize: MainAxisSize.max,
+                        children: [
+                          Container(
+                              height: 40,
+                              width: 50,
+                              child:
+                                  Image.asset('assets/images/google-logo.png')),
+                          Text('Sign in with Google'),
+                        ],
+                      ),
+                    ),
+                  ),
                 ),
               )
             ],
