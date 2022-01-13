@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_ctrl/common_widgets/custom_text.dart';
 
 class LoginBox extends StatelessWidget {
   const LoginBox({Key? key}) : super(key: key);
@@ -25,24 +26,14 @@ class LoginBox extends StatelessWidget {
             children: [
               Padding(
                 padding: EdgeInsets.fromLTRB(52, 12, 20, 5),
-                child: Text(
-                  'CTRL_hub',
-                  style: Theme.of(context).textTheme.headline2?.merge(
-                        TextStyle(
-                          color: Colors.white70,
-                        ),
-                      ),
-                ),
+                child: Text('CTRL_hub',
+                    style: Theme.of(context).textTheme.headline2),
               ),
               Padding(
                 padding: EdgeInsets.fromLTRB(52, 5, 30, 14),
                 child: Text(
                   ' Central \n front-end \n projects \n utilites',
-                  style: Theme.of(context).textTheme.headline4?.merge(
-                        TextStyle(
-                          color: Colors.white60,
-                        ),
-                      ),
+                  style: Theme.of(context).textTheme.headline5,
                 ),
               ),
               Padding(

@@ -7,7 +7,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:cloud_functions/cloud_functions.dart';
 import 'package:flutter_ctrl/login_page/login_page.dart';
 
-Future<void> main() async {
+void main() async {
   try {
     WidgetsFlutterBinding.ensureInitialized();
     await Firebase.initializeApp();
@@ -27,6 +27,11 @@ class MyApp extends StatelessWidget {
       title: "Ctrl Center",
       theme: ThemeData(
         visualDensity: VisualDensity.adaptivePlatformDensity,
+        textTheme: const TextTheme(
+          headline2: TextStyle(color: Colors.white60),
+          headline5: TextStyle(color: Colors.white60),
+          bodyText1: TextStyle(color: Colors.white60),
+        ),
       ),
       debugShowCheckedModeBanner: false,
       home: LoginPage(),
