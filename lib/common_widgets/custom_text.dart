@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 
 class CustomText extends StatelessWidget {
@@ -8,11 +10,13 @@ class CustomText extends StatelessWidget {
     this.text: 'CustomText',
     this.alignment: Alignment.centerLeft,
     this.padding: EdgeInsets.zero,
+    this.style,
   }) : super(key: key);
 
   final String text;
   final Alignment alignment;
   final EdgeInsets padding;
+  final TextStyle? style;
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +26,7 @@ class CustomText extends StatelessWidget {
         padding: this.padding,
         child: Text(
           this.text,
-          style: Theme.of(context).textTheme.headline4,
+          style: this.style,
         ),
       ),
     );
