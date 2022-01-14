@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 
 // Import the firebase_core plugin
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter_ctrl/home_page/home_page.dart';
 import '/config/firebase_config.dart';
 import 'package:cloud_functions/cloud_functions.dart';
 import 'package:flutter_ctrl/login_page/login_page.dart';
