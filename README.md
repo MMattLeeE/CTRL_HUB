@@ -8,6 +8,13 @@ A central app that houses a variety of information related to daily tasks
 - random projects
 
 #Important
+- google auth client key is in the meta tag in index.html
+    - get key from https://console.developers.google.com/
+- When testing google auth locally for the web, connect to the 
+white listed local host:
+```
+flutter run -d chrome — web-hostname localhost — web-port YOUR_PORT_#
+```
 - there are two config files that are gitignored
     - one at web/config.js with a script<> reference in index.html. This connects to the firebase project
     - a config file DO_NOT_COMMIT holds the plaid api keys
