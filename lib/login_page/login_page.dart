@@ -1,10 +1,24 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_ctrl/services/auth.dart';
 
 import '../common_widgets/custom_text.dart';
 import '../common_widgets/social_icon_button.dart';
 
 class LoginPage extends StatelessWidget {
-  const LoginPage({Key? key}) : super(key: key);
+  const LoginPage({
+    Key? key,
+    required this.auth,
+  }) : super(key: key);
+
+  final AuthBase auth;
+
+  Future<void> _signInAnonymous() async {
+    try {
+      await auth.logInAnonymous();
+    } catch (e) {
+      print(e);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -67,6 +81,14 @@ class LoginPage extends StatelessWidget {
                 image: Image.asset('assets/images/google-logo.png'),
                 onPressed: () {},
               ),
+              SocialIconButton(
+                text: 'Sign in Anonymously',
+                alignment: Alignment.centerRight,
+                fillColor: Colors.blue.shade100,
+                textColor: Colors.black,
+                padding: EdgeInsets.only(right: 40),
+                onPressed: _signInAnonymous,
+              )
             ],
           ),
         ),

@@ -3,10 +3,11 @@ import 'package:flutter/material.dart';
 
 // Import the firebase_core plugin
 import 'package:firebase_core/firebase_core.dart';
-import 'package:flutter_ctrl/home_page/home_page.dart';
+import 'package:flutter_ctrl/landing_page/landing_page.dart';
 import '/config/firebase_config.dart';
 import 'package:cloud_functions/cloud_functions.dart';
-import 'package:flutter_ctrl/login_page/login_page.dart';
+
+import 'services/auth.dart';
 
 void main() async {
   try {
@@ -40,7 +41,9 @@ class MyApp extends StatelessWidget {
         ),
       ),
       debugShowCheckedModeBanner: false,
-      home: LoginPage(),
+      home: LandingPage(
+        auth: Auth(),
+      ),
     );
   }
 }
