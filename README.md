@@ -13,7 +13,7 @@ A central app that houses a variety of information related to daily tasks
 - When testing google auth locally for the web, connect to the 
 white listed local host:
 ```
-flutter run -d chrome — web-hostname localhost — web-port YOUR_PORT_#
+flutter run -d chrome --web-hostname localhost --web-port 7357
 ```
 - there are two config files that are gitignored
     - one at web/config.js with a script<> reference in index.html. This connects to the firebase project

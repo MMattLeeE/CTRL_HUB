@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
@@ -37,6 +39,7 @@ class Auth implements AuthBase {
             accessToken: googleAuth.accessToken,
           ),
         );
+        log('${userCredential.user}');
         return userCredential.user;
       } else {
         throw FirebaseAuthException(
