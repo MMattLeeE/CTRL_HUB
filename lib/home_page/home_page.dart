@@ -1,17 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_ctrl/common_widgets/social_icon_button.dart';
-
-import '../services/auth.dart';
+import 'package:flutter_ctrl/services/auth_provider.dart';
 
 class HomePage extends StatelessWidget {
-  const HomePage({
-    Key? key,
-    required this.auth,
-  }) : super(key: key);
-
-  final AuthBase auth;
-
-  Future<void> _logOut() async {
+  Future<void> _logOut(BuildContext context) async {
+    final auth = AuthProvider.of(context);
     try {
       await auth.logOut();
     } catch (e) {
@@ -27,7 +20,7 @@ class HomePage extends StatelessWidget {
         child: SocialIconButton(
           alignment: Alignment.center,
           text: 'Logout',
-          onPressed: _logOut,
+          onPressed: () => _logOut(context),
         ),
       ),
     );

@@ -1,27 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_ctrl/services/auth.dart';
+import 'package:flutter_ctrl/services/auth_provider.dart';
 
 import '../common_widgets/custom_text.dart';
 import '../common_widgets/social_icon_button.dart';
 
 class LoginPage extends StatelessWidget {
-  const LoginPage({
-    Key? key,
-    required this.auth,
-  }) : super(key: key);
-
-  final AuthBase auth;
-
-  Future<void> _signInAnonymous() async {
+  Future<void> _signInAnonymous(BuildContext context) async {
     try {
+      final auth = AuthProvider.of(context);
       await auth.logInAnonymous();
     } catch (e) {
       print(e);
     }
   }
 
-  Future<void> _signInWithGoogle() async {
+  Future<void> _signInWithGoogle(BuildContext context) async {
     try {
+      final auth = AuthProvider.of(context);
       await auth.signInWithGoogle();
     } catch (e) {
       print(e);
@@ -87,7 +83,7 @@ class LoginPage extends StatelessWidget {
                 textColor: Colors.black,
                 padding: EdgeInsets.only(right: 40),
                 image: Image.asset('assets/images/google-logo.png'),
-                onPressed: _signInWithGoogle,
+                onPressed: () => _signInWithGoogle(context),
               ),
               SocialIconButton(
                 text: 'Sign in Anonymously',
@@ -95,7 +91,7 @@ class LoginPage extends StatelessWidget {
                 fillColor: Colors.blue.shade100,
                 textColor: Colors.black,
                 padding: EdgeInsets.only(right: 40),
-                onPressed: _signInAnonymous,
+                onPressed: () => _signInAnonymous(context),
               )
             ],
           ),
