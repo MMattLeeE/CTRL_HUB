@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_ctrl/common_widgets/social_icon_button.dart';
-import 'package:flutter_ctrl/services/auth_provider.dart';
+import 'package:flutter_ctrl/services/auth.dart';
+import 'package:provider/provider.dart';
 
 class HomePage extends StatelessWidget {
   Future<void> _logOut(BuildContext context) async {
-    final auth = AuthProvider.of(context);
+    final auth = Provider.of<AuthBase>(context, listen: false);
     try {
       await auth.logOut();
     } catch (e) {

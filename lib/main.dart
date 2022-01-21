@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 // Import the firebase_core plugin
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_ctrl/landing_page/landing_page.dart';
-import 'package:flutter_ctrl/services/auth_provider.dart';
+import 'package:provider/provider.dart';
 import '/config/firebase_config.dart';
 import 'package:cloud_functions/cloud_functions.dart';
 
@@ -29,8 +29,8 @@ void main() async {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return AuthProvider(
-      auth: Auth(),
+    return Provider<AuthBase>(
+      create: (context) => Auth(),
       child: MaterialApp(
         title: "Ctrl Center",
         theme: ThemeData(

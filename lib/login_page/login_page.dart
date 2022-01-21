@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+
 import 'package:flutter_ctrl/services/auth.dart';
-import 'package:flutter_ctrl/services/auth_provider.dart';
+import 'package:provider/provider.dart';
 
 import '../common_widgets/custom_text.dart';
 import '../common_widgets/social_icon_button.dart';
@@ -8,7 +9,7 @@ import '../common_widgets/social_icon_button.dart';
 class LoginPage extends StatelessWidget {
   Future<void> _signInAnonymous(BuildContext context) async {
     try {
-      final auth = AuthProvider.of(context);
+      final auth = Provider.of<AuthBase>(context, listen: false);
       await auth.logInAnonymous();
     } catch (e) {
       print(e);
@@ -17,7 +18,7 @@ class LoginPage extends StatelessWidget {
 
   Future<void> _signInWithGoogle(BuildContext context) async {
     try {
-      final auth = AuthProvider.of(context);
+      final auth = Provider.of<AuthBase>(context, listen: false);
       await auth.signInWithGoogle();
     } catch (e) {
       print(e);

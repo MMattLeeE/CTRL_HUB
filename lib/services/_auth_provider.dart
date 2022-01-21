@@ -1,3 +1,6 @@
+
+/* replace it all with Provider package:
+
 import 'package:flutter/cupertino.dart';
 
 import 'package:flutter/material.dart';
@@ -14,7 +17,6 @@ class AuthProvider extends InheritedWidget {
 
   @override
   bool updateShouldNotify(covariant InheritedWidget oldWidget) {
-    // TODO: implement updateShouldNotify
     throw UnimplementedError();
   }
 
@@ -25,3 +27,4 @@ class AuthProvider extends InheritedWidget {
     return provider.auth;
   }
 }
+*/
