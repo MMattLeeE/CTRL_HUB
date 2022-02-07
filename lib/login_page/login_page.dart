@@ -94,10 +94,9 @@ class _LoginPageState extends State<LoginPage> {
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisSize: MainAxisSize.min,
             children: [
-              CustomText(
-                text: "CTRL_hub",
-                padding: EdgeInsets.fromLTRB(52, 0, 10, 10),
-                style: Theme.of(context).textTheme.headline2,
+              SizedBox(
+                height: 50,
+                child: _buildHeader(),
               ),
               CustomText(
                 text: ' Central \n front-end \n projects \n utilites',
@@ -111,7 +110,7 @@ class _LoginPageState extends State<LoginPage> {
                 textColor: Colors.black,
                 padding: EdgeInsets.only(right: 40),
                 image: Image.asset('assets/images/google-logo.png'),
-                onPressed: () => _signInWithGoogle(context),
+                onPressed: _isLoading ? null : () => _signInWithGoogle(context),
               ),
               SocialIconButton(
                 text: 'Sign in Anonymously',
@@ -119,12 +118,26 @@ class _LoginPageState extends State<LoginPage> {
                 fillColor: Colors.blue.shade100,
                 textColor: Colors.black,
                 padding: EdgeInsets.only(right: 40),
-                onPressed: () => _signInAnonymous(context),
+                onPressed: _isLoading ? null : () => _signInAnonymous(context),
               )
             ],
           ),
         ),
       ),
+    );
+  }
+
+  // building out the header and widget to show a progress indicator
+  Widget _buildHeader() {
+    if (_isLoading) {
+      return Center(
+        child: CircularProgressIndicator(),
+      );
+    }
+    return CustomText(
+      text: "CTRL_hub",
+      padding: EdgeInsets.fromLTRB(52, 0, 10, 10),
+      style: Theme.of(context).textTheme.headline2,
     );
   }
 }

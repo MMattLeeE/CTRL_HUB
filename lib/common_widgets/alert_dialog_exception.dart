@@ -2,6 +2,8 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_ctrl/common_widgets/alert_dialog.dart';
 
+// uses the base alertDialog, wrapping it, and converting any exception message
+// to a string before passing it to alertDialog
 Future<void> alertDialogException(
   BuildContext context, {
   required String title,

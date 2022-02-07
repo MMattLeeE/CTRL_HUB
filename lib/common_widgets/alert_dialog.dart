@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+// base alert dialog that is used to build the exception dialog
 Future<dynamic> alertDialog(
   BuildContext context, {
   required String title,
