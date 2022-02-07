@@ -1,4 +1,6 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_ctrl/common_widgets/alert_dialog_exception.dart';
 
 import 'package:flutter_ctrl/services/auth.dart';
 import 'package:provider/provider.dart';
@@ -6,22 +8,47 @@ import 'package:provider/provider.dart';
 import '../common_widgets/custom_text.dart';
 import '../common_widgets/social_icon_button.dart';
 
-class LoginPage extends StatelessWidget {
+class LoginPage extends StatefulWidget {
+  @override
+  State<LoginPage> createState() => _LoginPageState();
+}
+
+class _LoginPageState extends State<LoginPage> {
+  bool _isLoading = false;
+
+  void _showSignInError(BuildContext context, Exception exception) {
+    if (exception is FirebaseException &&
+        exception.code == 'ERROR_ABORTED_BY_USER') {
+      return;
+    }
+    alertDialogException(
+      context,
+      title: 'Sign in failed',
+      exception: exception,
+    );
+  }
+
   Future<void> _signInAnonymous(BuildContext context) async {
     try {
+      setState(() => _isLoading = true);
       final auth = Provider.of<AuthBase>(context, listen: false);
       await auth.logInAnonymous();
-    } catch (e) {
-      print(e);
+    } on Exception catch (e) {
+      _showSignInError(context, e);
+    } finally {
+      setState(() => _isLoading = false);
     }
   }
 
   Future<void> _signInWithGoogle(BuildContext context) async {
     try {
+      setState(() => _isLoading = true);
       final auth = Provider.of<AuthBase>(context, listen: false);
       await auth.signInWithGoogle();
-    } catch (e) {
-      print(e);
+    } on Exception catch (e) {
+      _showSignInError(context, e);
+    } finally {
+      setState(() => _isLoading = false);
     }
   }
 
