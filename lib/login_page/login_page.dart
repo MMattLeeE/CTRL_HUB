@@ -1,6 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_ctrl/common_widgets/alert_dialog_exception.dart';
+import 'package:flutter_ctrl/login_page/login_bloc.dart';
 
 import 'package:flutter_ctrl/services/auth.dart';
 import 'package:provider/provider.dart';
@@ -9,6 +10,13 @@ import '../common_widgets/custom_text.dart';
 import '../common_widgets/social_icon_button.dart';
 
 class LoginPage extends StatefulWidget {
+  static Widget create(BuildContext context) {
+    return Provider<LoginBloc>(
+      create: (_) => LoginBloc(),
+      child: LoginPage(),
+    );
+  }
+
   @override
   State<LoginPage> createState() => _LoginPageState();
 }
